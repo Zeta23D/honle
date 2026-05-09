@@ -1,0 +1,474 @@
+<!doctype html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wedding Invitation - Cao Trí & Tố Trinh</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@200;300;400;500&family=Great+Vibes&family=Dancing+Script:wght@500&display=swap"
+        rel="stylesheet" />
+
+    <style>
+        :root {
+            --bg-color: #fcfaf7;
+            --accent: #d4af37;
+            --text-dark: #2c3e50;
+            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.85);
+            --gold-gradient: linear-gradient(45deg, #af8f2c, #f3e1a0, #d4af37, #b38627);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "Montserrat", sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* Hiệu ứng chữ lấp lánh cho tên */
+        .shimmer-text {
+            background: var(--gold-gradient);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 3s linear infinite;
+        }
+
+        @keyframes shine {
+            to {
+                background-position: 200% center;
+            }
+        }
+
+        /* Màn hình chào để kích hoạt nhạc */
+        #entry-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: 0.8s forwards;
+        }
+
+        .open-btn {
+            padding: 15px 35px;
+            background: var(--accent);
+            border: none;
+            border-radius: 30px;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* Particle Background */
+        #particles-js {
+            position: fixed;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        #preloader {
+            position: fixed;
+            inset: 0;
+            background: var(--bg-color);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .loader-heart {
+            font-size: 50px;
+            color: var(--accent);
+            animation: heartBeat 1.2s infinite;
+        }
+
+        @keyframes heartBeat {
+
+            0%,
+            30%,
+            60% {
+                transform: scale(1);
+            }
+
+            15% {
+                transform: scale(1.3);
+            }
+
+            45% {
+                transform: scale(1.15);
+            }
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url("anh_1.jpg");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .hero-content {
+            background: var(--glass);
+            padding: 40px 20px;
+            backdrop-filter: blur(8px);
+            border-radius: 15px;
+            width: 85%;
+            max-width: 600px;
+            z-index: 2;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .music-control {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            border: 2px solid var(--accent);
+        }
+
+        .music-control.playing {
+            animation: rotate 3s linear infinite;
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        section {
+            padding: 80px 15px;
+            max-width: 1100px;
+            margin: auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .section-title {
+            font-family: "Playfair Display", serif;
+            font-size: 2.2rem;
+            margin-bottom: 40px;
+            text-align: center;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .section-title::after {
+            content: "✨";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1rem;
+        }
+
+        .album-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .album-item {
+            overflow: hidden;
+            border-radius: 12px;
+            aspect-ratio: 3/4;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            background: #eee;
+        }
+
+        .album-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.8s;
+        }
+
+        .album-item:hover img {
+            transform: scale(1.1) rotate(2deg);
+        }
+
+        .event-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid #f0f0f0;
+            border-bottom: 5px solid var(--accent);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        footer {
+            padding: 60px 0;
+            text-align: center;
+            background: white;
+            position: relative;
+            z-index: 2;
+        }
+
+        @media (max-width: 768px) {
+            .album-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="entry-overlay">
+        <div class="loader-heart">❤</div>
+        <h2 style="margin: 20px 0; font-family: 'Great Vibes', cursive; font-size: 2rem;">Cao Trí & Tố Trinh</h2>
+        <button class="open-btn" onclick="startEverything()">Mở Thiệp Cưới ✨</button>
+    </div>
+
+    <div id="preloader" style="display:none;">
+        <div class="loader-heart">❤</div>
+    </div>
+
+    <div id="particles-js"></div>
+
+    <div class="music-control" id="musicBtn" onclick="toggleMusic()">
+        <span id="musicIcon">🎵</span>
+    </div>
+
+    <audio id="weddingMusic" loop playsinline>
+        <source src="./music.mp3" type="audio/mpeg">
+    </audio>
+
+    <header class="hero">
+        <div class="hero-content reveal">
+            <h2 style="font-size:1.1rem;font-weight:normal;line-height:1.8;margin-bottom:25px; color: #555;">
+                <span style="display:block;">💌 Thiệp mời online</span>
+                <span style="display:block;">thay cho những tấm thiệp hồng</span>
+                <span style="display:block;">chưa kịp trao tay 💌</span>
+            </h2>
+
+            <h3 style="text-transform:uppercase;letter-spacing:3px;font-size:.8rem;color:#888;margin-bottom:10px;">
+                The Wedding Celebration
+            </h3>
+
+            <h1 class="shimmer-text" style="font-size:3.5rem; font-family:'Great Vibes',cursive; margin:15px 0;">
+                Cao Trí & Tố Trinh
+            </h1>
+
+            <div style="margin-top:20px;">
+                <p style="font-size:1.4rem;font-weight:bold; color: var(--accent);">
+                    03 - 04 / 06 / 2026
+                </p>
+                <p style="font-style:italic;color:#666; font-size: 0.9rem;">
+                    (Ngày 18 - 19 Tháng 04 Năm Bính Ngọ)
+                </p>
+            </div>
+        </div>
+    </header>
+
+    <section id="invitation">
+        <div class="reveal">
+            <h2 class="section-title">Lời Ngỏ</h2>
+            <div
+                style="background: white; padding: 40px 25px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; line-height: 2;">
+                <p style="font-style:italic;color:#d63384; font-weight: 500;">
+                    “Yêu không chỉ là những khoảnh khắc rực rỡ,<br>
+                    mà là khi hai người nắm tay nhau đi qua những ngày bình dị nhất...”
+                </p>
+                <br>
+                <p>
+                    Sau một hành trình dài đầy kỷ niệm, chúng mình đã quyết định chọn ở lại bên nhau trọn đời.
+                    Khoảnh khắc này không chỉ là một cái kết đẹp, mà còn là khởi đầu cho một hành trình mới.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery">
+        <h2 class="section-title reveal">Khoảnh Khắc Yêu Thương</h2>
+        <div class="album-grid" id="albumContainer">
+        </div>
+    </section>
+
+    <section id="timeline">
+        <h2 class="section-title reveal">Lịch Trình Buổi Lễ</h2>
+        <div class="event-card reveal">
+            <h3>🤵🏻‍♂️ Lễ Tân Hôn</h3>
+            <p style="color:#d63384;font-weight:bold; margin-top: 10px;">04/06/2026</p>
+            <p style="color:#d63384;font-weight:bold; margin-top: 10px;">(Ngày 19 Tháng 04 Năm Bính Ngọ)</p>
+            <div style="font-size:1.8rem;color:var(--accent);margin:15px 0; font-weight: bold;">⏰ 18:00</div>
+            <p><b>Nhà trai:</b>
+                Ấp Vĩnh Trinh, xã Vĩnh Xuân, Vĩnh Long</p>
+        </div>
+    </section>
+
+    <section id="wedding-gift">
+        <h2 class="section-title reveal">Hộp Mừng Cưới</h2>
+        <div class="event-card reveal" style="max-width: 400px; margin: auto;">
+            <h3 style="color:#d63384;margin-bottom:15px;">🤵🏻‍♂️ Đến Chú Rể</h3>
+            <div style="background:#fff0f6;padding:20px;border-radius:10px;">
+                <p><b>HUỲNH CAO TRÍ</b></p>
+                <p style="font-size: 0.9rem;">NGÂN HÀNG: Agribank Vĩnh Long</p>
+                <p style="font-size:22px; font-weight:bold; color:#d63384; margin-top:10px; letter-spacing: 1px;">
+                    STK: 7305205267327
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p style="letter-spacing: 2px; color: #888;">THANK YOU</p>
+        <h2 class="shimmer-text"
+            style="font-family:'Great Vibes'; color:var(--accent); margin-top:10px; font-size:2.8rem;">
+            Cao Trí & Tố Trinh
+        </h2>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Tải ảnh album đầy đủ
+        const albumContainer = document.getElementById('albumContainer');
+        for (let i = 1; i <= 10; i++) {
+            albumContainer.innerHTML += `
+                <div class="album-item reveal">
+                    <img src="anh_${i}.jpg" alt="Wedding Photo" onerror="this.src='https://via.placeholder.com/400x600?text=Hình+Ảnh+${i}'">
+                </div>
+            `;
+        }
+
+        // Khởi tạo hiệu ứng lấp lánh (Sparkle)
+        function initParticles() {
+            particlesJS("particles-js", {
+                particles: {
+                    number: { value: 80, density: { enable: true, value_area: 800 } },
+                    color: { value: ["#d4af37", "#f3e1a0", "#ffffff"] },
+                    shape: { type: "circle" },
+                    opacity: { value: 0.6, random: true, anim: { enable: true, speed: 1, opacity_min: 0.1, sync: false } },
+                    size: { value: 3, random: true, anim: { enable: true, speed: 2, size_min: 0.1, sync: false } },
+                    move: { enable: true, speed: 1.5, direction: "top", random: true, straight: false, out_mode: "out" }
+                }
+            });
+        }
+
+        // Xử lý bật nhạc và hiệu ứng
+        const music = document.getElementById("weddingMusic");
+        const musicBtn = document.getElementById("musicBtn");
+        const musicIcon = document.getElementById("musicIcon");
+        let isPlaying = false;
+
+        function startEverything() {
+            // Ẩn lớp phủ
+            document.getElementById('entry-overlay').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('entry-overlay').style.display = 'none';
+            }, 800);
+
+            // Phát nhạc ngay lập tức
+            music.play().then(() => {
+                isPlaying = true;
+                musicBtn.classList.add("playing");
+            }).catch(e => console.log("Lỗi âm thanh:", e));
+
+            initParticles();
+            reveal();
+        }
+
+        function toggleMusic() {
+            if (isPlaying) {
+                music.pause();
+                musicIcon.textContent = "🔇";
+                musicBtn.classList.remove("playing");
+            } else {
+                music.play();
+                musicIcon.textContent = "🎵";
+                musicBtn.classList.add("playing");
+            }
+            isPlaying = !isPlaying;
+        }
+
+        // Hiệu ứng hiện dần khi scroll
+        function reveal() {
+            const reveals = document.querySelectorAll(".reveal");
+            reveals.forEach((el) => {
+                const windowHeight = window.innerHeight;
+                const elementTop = el.getBoundingClientRect().top;
+                if (elementTop < windowHeight - 50) {
+                    el.classList.add("active");
+                }
+            });
+        }
+
+        window.addEventListener("scroll", reveal);
+
+        // Đảm bảo ảnh load xong mới chạy hiệu ứng
+        window.onload = () => {
+            reveal();
+        };
+    </script>
+</body>
+
+</html>
